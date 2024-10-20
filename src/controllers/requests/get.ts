@@ -15,11 +15,11 @@ export const GET = async ({ res, id }: Props) => {
     return;
   }
 
-  if (!isValidUUID(id)) return response(res, 400, 'Invalid UUID');
+  if (!isValidUUID(id)) return response(res, 400, { message: 'Invalid UUID' });
 
   const user = getUserById(id);
 
-  if (!user) return response(res, 404, 'User not found');
+  if (!user) return response(res, 404, { message: 'User not found' });
 
   response(res, 200, user);
 };

@@ -2,6 +2,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { createUser } from '../../services/userService';
 import { parseBody } from '../../utils/parseBody';
 import { User } from '../../models/user';
+import { response } from '../../utils/response';
 
 interface Props {
   req: IncomingMessage;
@@ -10,10 +11,11 @@ interface Props {
 
 export const POST = async ({ req, res }: Props) => {
   const body: User = await parseBody(req);
+
+  if (!body.name || !body.age || !body.hobbies)
+    return response(res, 400, { message: 'Does not contains required fields' });
+
   const newUser = createUser(body.name, body.age, body.hobbies);
 
-  res.writeHead(201, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(newUser));
-
-  return;
+  response(res, 200, newUser);
 };

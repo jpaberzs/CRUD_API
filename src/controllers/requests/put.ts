@@ -1,7 +1,8 @@
 import { IncomingMessage, ServerResponse } from 'http';
+import { getUserById, updateUser } from '../../services/userService';
 import { parseBody } from '../../utils/parseBody';
-import { updateUser } from '../../services/userService';
-// import { isValidUUID } from '../../utils/isValidUUID';
+import { isValidUUID } from '../../utils/isValidUUID';
+import { response } from '../../utils/response';
 
 interface Props {
   req: IncomingMessage;
@@ -10,20 +11,22 @@ interface Props {
 }
 
 export const PUT = async ({ req, res, id }: Props) => {
-  if (id) {
-    const updateBody = await parseBody(req);
-    const updatedUser = updateUser(
-      id,
-      updateBody.name,
-      updateBody.age,
-      updateBody.hobbies
-    );
-    if (updatedUser) {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(updatedUser));
-    } else {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'User not found' }));
-    }
-  }
+  if (!id) return response(res, 404, { message: 'ID not found' });
+  if (!isValidUUID(id)) return response(res, 400, { message: 'Invalid UUID' });
+
+  const oldUser = getUserById(id);
+
+  if (!oldUser) return response(res, 404, { message: 'User not found' });
+
+  const { name, age, hobbies } = await parseBody(req);
+  const updatedUser = updateUser(
+    id,
+    name || oldUser.name,
+    age || oldUser.age,
+    hobbies || oldUser.hobbies
+  );
+
+  if (!updatedUser) return response(res, 404, { message: 'User not found' });
+
+  response(res, 200, updatedUser);
 };

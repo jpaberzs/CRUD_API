@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { userController } from '../controllers/userController';
+import { response } from '../utils/response';
 
 interface Props {
   req: IncomingMessage;
@@ -8,10 +9,14 @@ interface Props {
 
 export const routeHandler = ({ req, res }: Props) => {
   const urlParts = req.url?.split('/');
-  if (urlParts && urlParts[1] === 'users') {
-    userController({ req, res });
-  } else {
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Route not found' }));
+
+  if (urlParts) {
+    switch (urlParts[1]) {
+      case 'users':
+        userController({ req, res });
+        break;
+      default:
+        response(res, 404, { message: 'Route not found' });
+    }
   }
 };
