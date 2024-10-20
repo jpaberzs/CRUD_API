@@ -1,7 +1,12 @@
 import { ServerResponse } from 'http';
 import { deleteUser } from '../../services/userService';
 
-export const DELETE = (res: ServerResponse, id: string | null) => {
+interface Props {
+  res: ServerResponse;
+  id: string | null;
+}
+
+export const DELETE = ({ res, id }: Props) => {
   if (id) {
     const isDeleted = deleteUser(id);
     if (isDeleted) {

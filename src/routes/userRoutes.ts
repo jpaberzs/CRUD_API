@@ -1,7 +1,12 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { userController } from '../controllers/userController';
 
-export const routeHandler = (req: IncomingMessage, res: ServerResponse) => {
+interface Props {
+  req: IncomingMessage;
+  res: ServerResponse;
+}
+
+export const routeHandler = ({ req, res }: Props) => {
   const urlParts = req.url?.split('/');
   if (urlParts && urlParts[1] === 'users') {
     userController({ req, res });

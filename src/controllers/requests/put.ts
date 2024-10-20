@@ -2,11 +2,13 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { parseBody } from '../../utils/parseBody';
 import { updateUser } from '../../services/userService';
 
-export const PUT = async (
-  req: IncomingMessage,
-  res: ServerResponse,
-  id: string | null
-) => {
+interface Props {
+  req: IncomingMessage;
+  res: ServerResponse;
+  id: string | null;
+}
+
+export const PUT = async ({ req, res, id }: Props) => {
   if (id) {
     const updateBody = await parseBody(req);
     const updatedUser = updateUser(

@@ -11,19 +11,19 @@ export const userController = async ({ req, res }: Props) => {
   const method = req.method;
   const id = urlParts ? urlParts[2] : null;
 
-  if (urlParts && urlParts[1] !== 'users') {
+  if (urlParts && urlParts[1] === 'users') {
     switch (method) {
       case 'POST':
-        POST(req, res);
+        POST({ req, res });
         break;
       case 'GET':
-        GET(res, id);
+        GET({ res, id });
         break;
       case 'PUT':
-        PUT(req, res, id);
+        PUT({ req, res, id });
         break;
       case 'DELETE':
-        DELETE(res, id);
+        DELETE({ res, id });
         break;
       default:
         res.writeHead(405, { 'Content-Type': 'application/json' });

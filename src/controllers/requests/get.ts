@@ -1,7 +1,12 @@
 import { ServerResponse } from 'http';
 import { getUserById, getUsers } from '../../services/userService';
 
-export const GET = async (res: ServerResponse, id: string | null) => {
+interface Props {
+  res: ServerResponse;
+  id: string | null;
+}
+
+export const GET = async ({ res, id }: Props) => {
   if (id) {
     const user = getUserById(id);
     if (user) {
