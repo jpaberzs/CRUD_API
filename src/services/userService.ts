@@ -1,7 +1,8 @@
 import { User } from '../models/user';
 import { v4 as uuidv4 } from 'uuid';
+import { seed } from './seed';
 
-const users: User[] = [];
+const users: User[] = seed;
 
 export const createUser = (
   name: string,

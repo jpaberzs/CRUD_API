@@ -1,5 +1,7 @@
 import { ServerResponse } from 'http';
 import { getUserById, getUsers } from '../../services/userService';
+import { isValidUUID } from '../../utils/isValidUUID';
+import { response } from '../../utils/response';
 
 interface Props {
   res: ServerResponse;
@@ -7,18 +9,17 @@ interface Props {
 }
 
 export const GET = async ({ res, id }: Props) => {
-  if (id) {
-    const user = getUserById(id);
-    if (user) {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(user));
-    } else {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'User not found' }));
-    }
-  } else {
+  if (!id) {
     const allUsers = getUsers();
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(allUsers));
+    response(res, 200, allUsers);
+    return;
   }
+
+  if (!isValidUUID(id)) return response(res, 400, 'Invalid UUID');
+
+  const user = getUserById(id);
+
+  if (!user) return response(res, 404, 'User not found');
+
+  response(res, 200, user);
 };

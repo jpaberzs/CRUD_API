@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { parseBody } from '../../utils/parseBody';
 import { updateUser } from '../../services/userService';
+// import { isValidUUID } from '../../utils/isValidUUID';
 
 interface Props {
   req: IncomingMessage;
