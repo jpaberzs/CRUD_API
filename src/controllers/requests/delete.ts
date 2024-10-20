@@ -1,5 +1,5 @@
 import { ServerResponse } from 'http';
-import { deleteUser } from '../services/userService';
+import { deleteUser } from '../../services/userService';
 
 export const DELETE = (res: ServerResponse, id: string | null) => {
   if (id) {

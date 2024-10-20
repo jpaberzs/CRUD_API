@@ -1,5 +1,5 @@
 import { ServerResponse } from 'http';
-import { getUserById, getUsers } from '../services/userService';
+import { getUserById, getUsers } from '../../services/userService';
 
 export const GET = async (res: ServerResponse, id: string | null) => {
   if (id) {

@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { parseBody } from '../utils/parseBody';
-import { updateUser } from '../services/userService';
+import { parseBody } from '../../utils/parseBody';
+import { updateUser } from '../../services/userService';
 
 export const PUT = async (
   req: IncomingMessage,
