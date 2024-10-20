@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "npx ts-node-dev src/index.ts",
-    "start:prod": ""
+    "start:prod": "webpack --mode=production --node-env=production && node build/bundle.js",
+    "start:multi": "ts-node src/cluster.ts"
   },
   "keywords": [],
   "author": "",

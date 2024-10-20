@@ -11,9 +11,12 @@ export const routeHandler = ({ req, res }: Props) => {
   const urlParts = req.url?.split('/');
 
   if (urlParts) {
-    switch (urlParts[1]) {
+    switch (urlParts[2]) {
       case 'users':
         userController({ req, res });
+        break;
+      case req.errored?.message:
+        response(res, 500, { message: 'Error occured on server' });
         break;
       default:
         response(res, 404, { message: 'Route not found' });

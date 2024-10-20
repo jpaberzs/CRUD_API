@@ -1,11 +1,7 @@
-import path from 'path';
-import nodeExternals from 'webpack-node-externals';
-import { fileURLToPath } from 'url';
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export const webpack = {
+module.exports = {
   entry: './src/index.ts',
   target: 'node',
   externals: [nodeExternals()],
@@ -14,7 +10,8 @@ export const webpack = {
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
+        exclude: ['/node_modules/', '/build/'],
       },
     ],
   },

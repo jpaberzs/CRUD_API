@@ -10,7 +10,8 @@ interface Props {
 export const userController = async ({ req, res }: Props) => {
   const urlParts = req.url?.split('/');
   const method = req.method;
-  const id = urlParts ? urlParts[2] : null;
+
+  const id = urlParts ? urlParts[3] : null;
 
   switch (method) {
     case 'POST':
