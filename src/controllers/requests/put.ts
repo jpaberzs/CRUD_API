@@ -18,10 +18,10 @@ export const PUT = async ({ req, res, id }: Props) => {
 
   if (!oldUser) return response(res, 404, { message: 'User not found' });
 
-  const { name, age, hobbies } = await parseBody(req);
+  const { username, age, hobbies } = await parseBody(req, res);
   const updatedUser = updateUser(
     id,
-    name || oldUser.name,
+    username || oldUser.username,
     age || oldUser.age,
     hobbies || oldUser.hobbies
   );

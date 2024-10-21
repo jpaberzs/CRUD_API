@@ -5,11 +5,11 @@ import { seed } from './seed';
 const users: User[] = seed;
 
 export const createUser = (
-  name: string,
+  username: string,
   age: number,
   hobbies: string[]
 ): User => {
-  const newUser: User = { id: uuidv4(), name, age, hobbies };
+  const newUser: User = { id: uuidv4(), username, age, hobbies };
   users.push(newUser);
   return newUser;
 };
@@ -21,13 +21,13 @@ export const getUserById = (id: string): User | undefined =>
 
 export const updateUser = (
   id: string,
-  name: string,
+  username: string,
   age: number,
   hobbies: string[]
 ): User | undefined => {
   const userIndex = users.findIndex((u) => u.id === id);
   if (userIndex !== -1) {
-    users[userIndex] = { id, name, age, hobbies };
+    users[userIndex] = { id, username, age, hobbies };
     return users[userIndex];
   }
   return undefined;

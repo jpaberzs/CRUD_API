@@ -10,12 +10,14 @@ interface Props {
 }
 
 export const POST = async ({ req, res }: Props) => {
-  const body: User = await parseBody(req);
+  const body: User = await parseBody(req, res);
 
-  if (!body.name || !body.age || !body.hobbies)
+  if (!body) return response(res, 400, { message: 'Invalid JSON' });
+
+  if (!body.username || !body.age || !body.hobbies)
     return response(res, 400, { message: 'Does not contains required fields' });
 
-  const newUser = createUser(body.name, body.age, body.hobbies);
+  const newUser = createUser(body.username, body.age, body.hobbies);
 
   response(res, 200, newUser);
 };

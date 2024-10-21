@@ -15,9 +15,6 @@ export const routeHandler = ({ req, res }: Props) => {
       case 'users':
         userController({ req, res });
         break;
-      case req.errored?.message:
-        response(res, 500, { message: 'Error occured on server' });
-        break;
       default:
         response(res, 404, { message: 'Route not found' });
     }
