@@ -10,6 +10,8 @@
     "airbnb-typescript/base",
     "plugin:import/typescript"
   ],
+  "ignores": ["./**"],
+  "ignorePatterns": ["./webpack.config.js"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
